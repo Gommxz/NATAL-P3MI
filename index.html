@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natal 2025 – p3mi MARIA SUNGGAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0b1026, #1a2344, #162d59);
+            color: #e8f1ff;
+            min-height: 100vh;
+            padding: 0 12px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Bintang & Salju (sama seperti sebelumnya) */
+        .stars, .snow { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+        .star { position:absolute; background:#fff; border-radius:50%; box-shadow:0 0 10px 3px #fff; animation:twinkle linear infinite; }
+        .snowflake { position:absolute; background:#e8f4ff; border-radius:50%; opacity:0.9; animation:fall linear infinite; }
+        @keyframes twinkle { 0%,100%{opacity:0.4; transform:scale(1)} 50%{opacity:1; transform:scale(1.4)} }
+        @keyframes fall { to { transform:translateY(100vh); } }
+
+        header {
+            text-align:center;
+            padding: 90px 15px 50px;
+            position:relative;
+            z-index:10;
+        }
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 50px;
+            color:#ffffff;
+            text-shadow: 0 0 25px #4a90ff, 0 0 50px #2a5eff;
+            letter-spacing: 2px;
+        }
+        header .sub { font-size:22px; color:#c0d8ff; margin:15px 0 30px; }
+        header .ayat { font-size:18px; line-height:1.7; color:#b8d4ff; max-width:90%; margin:0 auto; }
+
+        .container {
+            max-width: 520px;
+            margin: 0 auto 60px;
+            padding: 40px 25px;
+            background: rgba(20,30,70,0.45);
+            border-radius: 24px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            border: 1px solid rgba(100,150,255,0.25);
+            position:relative;
+            z-index:10;
+        }
+
+        /* ==================== TOMBOL BARU – SUPER CANTIK ==================== */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            width: 100%;
+            padding: 20px;
+            margin: 16px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 19px;
+            font-weight: 500;
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(70,120,255,0.3), rgba(40,80,200,0.3));
+            border: 1.5px solid rgba(120,180,255,0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 8px 25px rgba(74,126,255,0.25),
+                inset 0 2px 8px rgba(255,255,255,0.15);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn i { font-size: 26px; }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.7s;
+        }
+        .btn:hover {
+            transform: translateY(-6px);
+            box-shadow: 
+                0 15px 40px rgba(74,126,255,0.45),
+                inset 0 3px 12px rgba(255,255,255,0.25);
+            border-color: rgba(160,200,255,0.8);
+        }
+        .btn:hover::before { left: 100%; }
+        .btn:active {
+            transform: translateY(-50%);
+        }
+
+        /* Galeri & Lightbox (tetap sama, hanya sedikit lebih halus) */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+            gap: 16px;
+            margin-top: 30px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 155px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 3px solid #a0c4ff;
+            box-shadow: 0 10px 30px rgba(160,196,255,0.25);
+            cursor: zoom-in;
+            transition: transform 0.4s;
+        }
+        .gallery img:hover { transform: scale(1.06); }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(5,10,30,0.98);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        #lightbox.active { display: flex; }
+        #lightbox img {
+            max-width: 96%;
+            max-height: 92vh;
+            border-radius: 20px;
+            border: 6px solid #a0c4ff;
+            box-shadow: 0 0 60px #4a90ff;
+        }
+        .close {
+            position: absolute;
+            top: 30px; right: 25px;
+            font-size: 50px;
+            color: #fff;
+            background: rgba(0,0,0,0.5);
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        video {
+            width: 100%;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 5px solid #a0c4ff;
+            box-shadow: 0 12px 40px rgba(160,196,255,0.3);
+        }
+
+        footer {
+            text-align:center;
+            padding: 50px 15px;
+            color:#a0c4ff;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="stars"></div>
+    <div class="snow" id="snow"></div>
+
+    <header>
+        <h1>NATAL P3MI MARIA SUNGGAL</h1>
+        <div class="sub">Perayaan Natal 2025</div>
+        <div class="ayat">
+            “Maka ia melahirkan seorang anak laki-laki, anaknya yang sulung, lalu dibungkusnya dengan lampin dan dibaringkannya di dalam palungan…”<br><b>— Lukas 2:7</b><br><br>
+            “Ia telah ada di dalam dunia … tetapi dunia tidak mengenal-Nya.”<br><b>— Yohanes 1:10</b>
+        </div>
+    </header>
+
+    <div class="container">
+        <button class="btn" onclick="openTataAcara()">
+            <i class="fas fa-book-open"></i> Tata Acara Natal P3MI
+        </button>
+        <button class="btn" onclick="showPhotos()">
+            <i class="fas fa-camera"></i> Lihat Foto-Foto P3MI
+        </button>
+        <button class="btn" onclick="showVideo()">
+            <i class="fas fa-play-circle"></i> Lihat Video P3MI
+        </button>
+
+        <div id="output"></div>
+    </div>
+
+    <div id="lightbox">
+        <div class="close" onclick="closeLightbox()">×</div>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <footer>
+        © 2025 Perayaan Natal Gereja<br>
+        Malam Kudus, Malam Damai · Yesus Lahir bagi Kita
+    </footer>
+
+    <script>
+        // Bintang + Salju (ringan)
+        for(let i=0;i<120;i++){
+            let s=document.createElement('div'); s.className='star';
+            s.style.width=s.style.height=Math.random()*3+1+'px';
+            s.style.left=Math.random()*100+'vw';
+            s.style.top=Math.random()*100+'vh';
+            s.style.animationDelay=Math.random()*5+'s';
+            s.style.animationDuration=3+Math.random()*5+'s';
+            document.getElementById('stars').appendChild(s);
+        }
+        for(let i=0;i<80;i++){
+            let f=document.createElement('div'); f.className='snowflake';
+            f.style.width=f.style.height=Math.random()*5+3+'px';
+            f.style.left=Math.random()*100+'vw';
+            f.style.animationDuration=Math.random()*10+10+'s';
+            f.style.animationDelay=Math.random()*10+'s';
+            document.getElementById('snow').appendChild(f);
+        }
+
+        function openTataAcara(){ window.open("https://heyzine.com/flip-book/5cb906f3e1.html","_blank"); }
+        function showPhotos(){
+            const out=document.getElementById('output');
+            out.innerHTML=`<h2 style="text-align:center;color:#a0c4ff;margin:30px 0 15px;font-size:25px;">Galeri Foto Natal 2025</h2>`;
+            out.className="gallery";
+            const photos=["images/gambar1.png","images/gambar2.png","images/gambar3.png","images/gambar4.png","images/gambar5.png"];
+            photos.forEach(src=>{
+                let img=document.createElement('img');
+                img.src=src;
+                img.onclick=()=>openLightbox(src);
+                img.onerror=()=>{img.src="https://via.placeholder.com/400x300/162d59/a0c4ff?text=Malam+Kudus+2025"};
+                out.appendChild(img);
+            });
+        }
+        function openLightbox(src){
+            document.getElementById('lightbox-img').src=src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow="hidden";
+        }
+        function closeLightbox(){
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow="auto";
+        }
+        document.getElementById('lightbox').onclick=e=>{ if(e.target!==document.getElementById('lightbox-img')) closeLightbox(); }
+
+        function showVideo(){
+            document.getElementById('output').innerHTML=`
+                <h2 style="text-align:center;color:#a0c4ff;margin:35px 0 20px;font-size:25px;">Video Malam Kudus 2025</h2>
+                <video controls poster="images/poster.jpg">
+                    <source src="videos/video2025.mp4" type="video/mp4">
+                </video>`;
+        }
+    </script>
+</body>
+</html>
